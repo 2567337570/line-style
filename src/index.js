@@ -6,9 +6,13 @@ let btn = document.getElementById('pop-up');
 let hbtn = document.getElementById('hide');
 let copyBtn = document.getElementById("copy");
 let resultValue = document.getElementById("result-value");
+let mask = document.getElementsByClassName("mask")[0];
+let msgDom = document.getElementsByClassName("message")[0];
+let board = document.getElementsByClassName("board")[0];
+let alertSure = document.getElementById("alertSure");
 btn.onclick = function() {
     if(labelValueDom.value === ""){
-        alert("请输入标签值");
+        showMessage("请输入标签值");
         return;
     }
     let styleVal = `<style>${styleValueDom.value}</style>`;
@@ -36,10 +40,24 @@ hbtn.onclick = function() {
 // copy
 copyBtn.onclick = function() {
     copyToClipboard(resultValue.value);
-    alert("复制成功");
+    showMessage("复制成功");
+}
+
+alertSure.onclick = function() {
+    hideMessage();
 }
 
 const copyToClipboard = (text) => {
     return	navigator.clipboard?.writeText && navigator.clipboard.writeText(text)
 }
 
+function showMessage(str){
+    msgDom.innerText = str;
+    mask.style.display = "block";
+    board.style.display = "block";
+}
+
+function hideMessage(){
+    mask.style = "none";
+    board.style.display = "none";
+}
