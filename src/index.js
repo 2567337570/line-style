@@ -1,3 +1,4 @@
+import './index.css';
 let juice = require('juice');
 let styleValueDom = document.getElementById("style-value");
 let labelValueDom = document.getElementById("label-value");

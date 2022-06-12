@@ -16,6 +16,17 @@ module.exports = {
 			// inject:true         //资源加入到底部，把模块引入到html文件的底部
         }),
     ],
+    module: {
+        rules: [
+            {
+                test: /\.css$/,
+                use: [
+                    'style-loader',
+                    'css-loader'
+                ]
+            }
+        ]
+    },
     devServer:{
         static: './dist'
     },
