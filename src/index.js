@@ -12,21 +12,7 @@ let msgDom = document.getElementsByClassName("message")[0];
 let board = document.getElementsByClassName("board")[0];
 let alertSure = document.getElementById("alertSure");
 btn.onclick = function() {
-    if(labelValueDom.value === ""){
-        showMessage("请输入标签值");
-        return;
-    }
-    let styleVal = `<style>${styleValueDom.value}</style>`;
-    let labelVal = labelValueDom.value;
-    let res = "";
-    styleVal = styleVal.replace(/[\r\n]/g , "");
-    res = styleVal + labelVal;
-    let result = juice(res);
-    resultValue.value = result;
-    document.getElementById('code_box').classList.remove('hide');
-    document.getElementById('code_box').style.display = "block";
-    styleValueDom.value = "";
-    labelValueDom.value = "";
+    writeValue()
 }
 
 hbtn.onclick = function() {
@@ -61,4 +47,26 @@ function showMessage(str){
 function hideMessage(){
     mask.style = "none";
     board.style.display = "none";
+}
+
+function writeValue(){
+    if(labelValueDom.value === ""){
+        showMessage("请输入标签值");
+        return;
+    }
+    let styleVal = `<style>${styleValueDom.value}</style>`;
+    let labelVal = labelValueDom.value;
+    let res = "";
+    styleVal = styleVal.replace(/[\r\n]/g , "");
+    res = styleVal + labelVal;
+    let result = juice(res);
+    console.log(result)
+    // 导入不合法标签另做处理
+    let illegalIndex = result.lastIndexOf('</style>');
+    if(illegalIndex > -1) {
+        result = result.substring(illegalIndex + 8);
+    }
+    resultValue.value = result;
+    document.getElementById('code_box').classList.remove('hide');
+    document.getElementById('code_box').style.display = "block";
 }
